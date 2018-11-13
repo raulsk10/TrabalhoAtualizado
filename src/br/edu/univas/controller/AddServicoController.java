@@ -33,9 +33,9 @@ public class AddServicoController {
 		servico.setCodCliente(addServicoPanel.getTxtCodCliente().getText());
 		servico.setCodCarro(addServicoPanel.getTxtCodCarro().getText());
 		servico.setStatus(addServicoPanel.getTxtStatus().getText());
-		servico.setDataEntrada(addServicoPanel.getTxtDataEntrada().getDate());
-		servico.setDataSaida(addServicoPanel.getTxtDataSaida().getDate());
-		servico.setValorFinal(addServicoPanel.getTxtValorFinal().getFloat());
+		servico.setDataEntrada(addServicoPanel.getTxtDataEntrada().getText());
+		servico.setDataSaida(addServicoPanel.getTxtDataSaida().getText());
+		servico.setValorFinal(addServicoPanel.getTxtValorFinal().getText());
 		
 		dao.save(servico);
 		limparCampos();
@@ -43,10 +43,12 @@ public class AddServicoController {
 	
 	private void limparCampos() {
 		List<JTextField> fields = Arrays.asList(
-				addServicoPanel.getTxtNome(),
-				addServicoPanel.getTxtCpf(),
-				addServicoPanel.getTxtEmail(),
-				addServicoPanel.getTxtTelefone());
+				addServicoPanel.getTxtCodCliente(),
+				addServicoPanel.getTxtCodCarro(),
+				addServicoPanel.getTxtStatus(),
+				addServicoPanel.getTxtDataEntrada(),
+				addServicoPanel.getTxtDataSaida(),
+				addServicoPanel.getTxtValorFinal());
 		
 		for (JTextField jTextField : fields) {
 			jTextField.setText(null);

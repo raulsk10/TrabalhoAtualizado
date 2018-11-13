@@ -30,6 +30,8 @@ public class AddClientePanel extends JPanel{
 	}
 	
 	private void addComponents() {
+		this.setLayout(new BorderLayout());
+		
 		JPanel northPanel = new JPanel();
 		addNorthComponents(northPanel);
 		northPanel.setBackground(Color.LIGHT_GRAY);
@@ -53,108 +55,60 @@ public class AddClientePanel extends JPanel{
 		gbc.anchor = GridBagConstraints.LINE_START;
 		content.add(nameLabel, gbc);
 		
-		JTextField nameTextField = new JTextField();
+		JTextField txtNome = new JTextField();
 		gbc.gridx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.weightx = 1.0;
-		content.add(nameTextField, gbc);
+		content.add(txtNome, gbc);
 		
-		JLabel placaLabel = new JLabel();
-		placaLabel.setText("Placa:");
+		JLabel cpfLabel = new JLabel();
+		cpfLabel.setText("CPF:");
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.weightx = 0;
-		content.add(placaLabel, gbc);
+		content.add(cpfLabel, gbc);
 		
-		JTextField placaTextField = new JTextField();
+		JTextField txtCpf = new JTextField();
 		gbc.gridx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.weightx = 1.0;
-		content.add(placaTextField, gbc);
+		content.add(txtCpf, gbc);
 		
-		JLabel modeloLabel = new JLabel();
-		modeloLabel.setText("Modelo:");
+		JLabel emailLabel = new JLabel();
+		emailLabel.setText("E-mail:");
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.weightx = 0;
-		content.add(modeloLabel, gbc);
+		content.add(emailLabel, gbc);
 		
-		JTextField modeloTextField = new JTextField();
+		JTextField txtEmail = new JTextField();
 		gbc.gridx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.weightx = 1.0;
-		content.add(modeloTextField, gbc);
+		content.add(txtEmail, gbc);
 		
-		JLabel enderecoLabel = new JLabel();
-		enderecoLabel.setText("Endereço:");
+		JLabel telefoneLabel = new JLabel();
+		telefoneLabel.setText("Endereço:");
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.weightx = 0;
-		content.add(enderecoLabel, gbc);
-		
-		JTextField enderecoTextField = new JTextField();
-		gbc.gridx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.anchor = GridBagConstraints.LINE_END;
-		gbc.weightx = 1.0;
-		content.add(enderecoTextField, gbc);
-		
-		JLabel telefoneLabel = new JLabel();
-		telefoneLabel.setText("Telefone 1:");
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		gbc.fill = GridBagConstraints.NONE;
-		gbc.anchor = GridBagConstraints.LINE_START;
-		gbc.weightx = 0;
 		content.add(telefoneLabel, gbc);
 		
-		JTextField telefoneTextField = new JTextField();
+		JTextField txtTelefone = new JTextField();
 		gbc.gridx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.weightx = 1.0;
-		content.add(telefoneTextField, gbc);
-		
-		JLabel telefone2Label = new JLabel();
-		telefone2Label.setText("Telefone 2:");
-		gbc.gridx = 0;
-		gbc.gridy = 5;
-		gbc.fill = GridBagConstraints.NONE;
-		gbc.anchor = GridBagConstraints.LINE_START;
-		gbc.weightx = 0;
-		content.add(telefone2Label, gbc);
-		
-		JTextField telefone2TextField = new JTextField();
-		gbc.gridx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.anchor = GridBagConstraints.LINE_END;
-		gbc.weightx = 1.0;
-		content.add(telefone2TextField, gbc);
-		
-		JLabel emailLabel = new JLabel();
-		emailLabel.setText("E-mail:");
-		gbc.gridx = 0;
-		gbc.gridy = 6;
-		gbc.fill = GridBagConstraints.NONE;
-		gbc.anchor = GridBagConstraints.LINE_START;
-		gbc.weightx = 0;
-		content.add(emailLabel, gbc);
-		
-		JTextField emailTextField = new JTextField();
-		gbc.gridx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.anchor = GridBagConstraints.LINE_END;
-		gbc.weightx = 1.0;
-		content.add(emailTextField, gbc);
+		content.add(txtTelefone, gbc);
 	}
 	
 	public JTextField getTxtNome() {

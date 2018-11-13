@@ -24,7 +24,7 @@ public class MainController {
 	public void initApp() {
 		mainView.setListener(new TrocaTelaListener() {
 			@Override
-			public void showListClienteView() {
+			public void showAddClienteView() {
 				showAddClientePanel();
 			}
 			
@@ -34,7 +34,7 @@ public class MainController {
 			}
 			
 			@Override
-			public void showAddClienteView() {
+			public void showListClienteView() {
 				showListClientePanel();
 			}
 		});
@@ -46,13 +46,13 @@ public class MainController {
 	private void showAddClientePanel() {
 		showPanel(addClienteController.getComponent());
 	}
+
+	private void showAddServicoPanel() {
+		showPanel(addServicoController.getComponent());
+	}
 	
 	private void showListClientePanel() {
 		showPanel(listClienteController.getComponent());
-	}
-	
-	private void showAddServicoPanel() {
-		showPanel(addServicoController.getComponent());
 	}
 	
 	private void showPanel(Component component) {

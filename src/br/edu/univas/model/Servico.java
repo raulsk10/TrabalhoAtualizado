@@ -7,9 +7,9 @@ public class Servico {
 	private String codCliente;
 	private String codCarro;
 	private String status;
-	private Date dataEntrada;
-	private Date dataSaida;
-	private float valorFinal;
+	private String dataEntrada;
+	private String dataSaida;
+	private String valorFinal;
 	
 	public String getCodCliente() {
 		return codCliente;
@@ -35,27 +35,27 @@ public class Servico {
 		this.status = status;
 	}
 	
-	public Date getDataEntrada() {
+	public String getDataEntrada() {
 		return dataEntrada;
 	}
 	
-	public void setDataEntrada(Date dataEntrada) {
+	public void setDataEntrada(String dataEntrada) {
 		this.dataEntrada = dataEntrada;
 	}
 	
-	public Date getDataSaida() {
+	public String getDataSaida() {
 		return dataSaida;
 	}
 	
-	public void setDataSaida(Date dataSaida) {
+	public void setDataSaida(String dataSaida) {
 		this.dataSaida = dataSaida;
 	}
 	
-	public float getValorFinal() {
+	public String getValorFinal() {
 		return valorFinal;
 	}
 	
-	public void setValorFinal(float valorFinal) {
+	public void setValorFinal(String valorFinal) {
 		this.valorFinal = valorFinal;
 	}
 	

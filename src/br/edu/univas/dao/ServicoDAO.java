@@ -27,9 +27,9 @@ private Connection connection;
 			statement.setString(index++, servico.getCodCliente());
 			statement.setString(index++, servico.getCodCarro());
 			statement.setString(index++, servico.getStatus());
-			statement.setDate(index++, servico.getDataEntrada());
-			statement.setDate(index++, servico.getDataEntrada());
-			statement.setFloat(index++, servico.getValorFinal());
+			statement.setString(index++, servico.getDataEntrada());
+			statement.setString(index++, servico.getDataEntrada());
+			statement.setString(index++, servico.getValorFinal());
 			
 			statement.execute();
 		} catch (SQLException e) {
@@ -51,9 +51,9 @@ private Connection connection;
 				servico.setCodCliente(resultSet.getString("codCliente"));
 				servico.setCodCarro(resultSet.getString("codCarro"));
 				servico.setStatus(resultSet.getString("status"));
-				servico.setDataEntrada(resultSet.getDate("dataEntrada"));
-				servico.setDataSaida(resultSet.getDate("dataSaida"));
-				servico.setValorFinal(resultSet.getFloat("valorFinal"));
+				servico.setDataEntrada(resultSet.getString("dataEntrada"));
+				servico.setDataSaida(resultSet.getString("dataSaida"));
+				servico.setValorFinal(resultSet.getString("valorFinal"));
 				
 				data.add(servico);
 			}
