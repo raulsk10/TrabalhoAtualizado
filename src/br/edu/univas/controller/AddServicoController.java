@@ -35,7 +35,7 @@ public class AddServicoController {
 		servico.setStatus(addServicoPanel.getTxtStatus().getText());
 		servico.setDataEntrada(addServicoPanel.getTxtDataEntrada().getText());
 		servico.setDataSaida(addServicoPanel.getTxtDataSaida().getText());
-		servico.setValorFinal(addServicoPanel.getTxtValorFinal().getText());
+		servico.setValorFinal(Float.parseFloat(addServicoPanel.getTxtValorFinal().getText()));
 		
 		dao.save(servico);
 		limparCampos();

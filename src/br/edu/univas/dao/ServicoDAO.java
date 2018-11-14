@@ -6,20 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import br.edu.univas.model.Servico;
 
 public class ServicoDAO {
 
 private Connection connection;
-	
+
 	public ServicoDAO() {
 		connection = ConnectionUtil.getConnection();
 	}
 	
 	public void save(Servico servico) {
 		String sql = "insert into servico (codCliente, codCarro, status, dataEntrada, dataSaida, valorFinal) "
-				+ "values (?, ?, ?, ?, ?, ?)";
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		int index = 1;
 		try {
@@ -28,8 +30,8 @@ private Connection connection;
 			statement.setString(index++, servico.getCodCarro());
 			statement.setString(index++, servico.getStatus());
 			statement.setString(index++, servico.getDataEntrada());
-			statement.setString(index++, servico.getDataEntrada());
-			statement.setString(index++, servico.getValorFinal());
+			statement.setString(index++, servico.getDataSaida());
+			statement.setFloat(index++, servico.getValorFinal());
 			
 			statement.execute();
 		} catch (SQLException e) {
@@ -53,7 +55,7 @@ private Connection connection;
 				servico.setStatus(resultSet.getString("status"));
 				servico.setDataEntrada(resultSet.getString("dataEntrada"));
 				servico.setDataSaida(resultSet.getString("dataSaida"));
-				servico.setValorFinal(resultSet.getString("valorFinal"));
+				servico.setValorFinal(resultSet.getFloat("valorFinal"));
 				
 				data.add(servico);
 			}

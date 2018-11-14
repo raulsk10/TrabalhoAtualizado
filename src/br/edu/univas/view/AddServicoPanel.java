@@ -15,6 +15,8 @@ public class AddServicoPanel extends JPanel {
 	private JTextField txtStatus;
 	private JTextField txtDataEntrada;
 	private JTextField txtDataSaida;
+	private JTextField txtHoraEntrada;
+	private JTextField txtHoraSaida;
 	private JTextField txtValorFinal;
 	
 	private SaveButtonListener listener;
@@ -58,6 +60,14 @@ public class AddServicoPanel extends JPanel {
 	
 	public JTextField getTxtDataSaida() {
 		return txtDataSaida;
+	}
+	
+	public JTextField getTxtHoraEntrada() {
+		return txtHoraEntrada;
+	}
+	
+	public JTextField getTxtHoraSaida() {
+		return txtHoraSaida;
 	}
 	
 	public JTextField getTxtValorFinal() {

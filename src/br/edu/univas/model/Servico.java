@@ -1,5 +1,6 @@
 package br.edu.univas.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Servico {
@@ -9,7 +10,7 @@ public class Servico {
 	private String status;
 	private String dataEntrada;
 	private String dataSaida;
-	private String valorFinal;
+	private float valorFinal;
 	
 	public String getCodCliente() {
 		return codCliente;
@@ -51,11 +52,11 @@ public class Servico {
 		this.dataSaida = dataSaida;
 	}
 	
-	public String getValorFinal() {
+	public float getValorFinal() {
 		return valorFinal;
 	}
 	
-	public void setValorFinal(String valorFinal) {
+	public void setValorFinal(float valorFinal) {
 		this.valorFinal = valorFinal;
 	}
 	
