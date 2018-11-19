@@ -18,7 +18,7 @@ public class MainView extends JFrame {
 
 	public MainView() {
 		this.setTitle("Casa dos Carros");
-		this.setSize(900, 720);
+		this.setSize(900, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -60,7 +60,7 @@ public class MainView extends JFrame {
 		panel.add(btnCliente);
 		
 		JButton btnServicos = new JButton();
-		btnServicos.setText("Serviços");
+		btnServicos.setText("Cadastro Serviços");
 		btnServicos.setPreferredSize(btnDimension);
 		btnServicos.addActionListener(new ActionListener() {
 			@Override
@@ -70,16 +70,27 @@ public class MainView extends JFrame {
 		});
 		panel.add(btnServicos);
 		
-		JButton btnListar = new JButton();
-		btnListar.setText("Listar Clientes");
-		btnListar.setPreferredSize(btnDimension);
-		btnListar.addActionListener(new ActionListener() {
+		JButton btnListarClientes = new JButton();
+		btnListarClientes.setText("Listar Clientes");
+		btnListarClientes.setPreferredSize(btnDimension);
+		btnListarClientes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				listener.showListClienteView();
 			}
 		});
-		panel.add(btnListar);
+		panel.add(btnListarClientes);
+		
+		JButton btnListarServicos = new JButton();
+		btnListarServicos.setText("Listar Serviços");
+		btnListarServicos.setPreferredSize(btnDimension);
+		btnListarServicos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.showListServicoView();
+			}
+		});
+		panel.add(btnListarServicos);
 	}
 	
 }

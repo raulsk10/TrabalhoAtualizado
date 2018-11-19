@@ -2,6 +2,7 @@ package br.edu.univas.view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -40,6 +41,7 @@ private JTable table;
 		columns.add("Telefone");
 	
 		table = new JTable(null, columns);
+		table.setEnabled(false);
 		
 		JScrollPane tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -49,6 +51,8 @@ private JTable table;
 		gbc.gridy = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+		gbc.insets = new Insets(0, 10, 10, 10);
 		this.add(tableScrollPane, gbc);
 	}
 

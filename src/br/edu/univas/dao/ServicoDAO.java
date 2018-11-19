@@ -39,10 +39,34 @@ private Connection connection;
 		}
 	}
 	
-	public ArrayList<Servico> getAll() {
-		ArrayList<Servico> data = new ArrayList<>();
+	public void atualizaStatus(String codServico) {
+		String sql = "update servico set status = 'F'"
+				+ "where codigo = '" + codServico + "'";
 		
-		String sql = "select * from servico";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Servico> filtraTabela(String filtro, String ordem) {
+		ArrayList<Servico> data = new ArrayList<>();
+		String sql;
+		
+		sql = "select s.codigo, s.codcliente, c.nome , s.codcarro, s.status, s.dataentrada, s.datasaida, s.valorfinal"
+				+ " from servico as s join cliente as c on s.codcliente = c.cpf";
+		if (filtro.equals("1"))
+			sql = sql + " where status = 'A'";
+		else 
+		if (filtro.equals("2"))
+			sql = sql + " where status = 'F'";
+		
+		if (ordem.equals("0"))
+			sql = sql + " order by nome";
+		else
+			sql = sql + " order by codigo";
 		
 		try {
 			Statement statement = connection.createStatement();
@@ -50,7 +74,40 @@ private Connection connection;
 			
 			while (resultSet.next()) {
 				Servico servico = new Servico();
+				servico.setCodigo(resultSet.getString("codigo"));
 				servico.setCodCliente(resultSet.getString("codCliente"));
+				servico.setNomeCliente(resultSet.getString("nome"));
+				servico.setCodCarro(resultSet.getString("codCarro"));
+				servico.setStatus(resultSet.getString("status"));
+				servico.setDataEntrada(resultSet.getString("dataEntrada"));
+				servico.setDataSaida(resultSet.getString("dataSaida"));
+				servico.setValorFinal(resultSet.getFloat("valorFinal"));
+				
+				data.add(servico);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		return data;
+	}
+	
+	public ArrayList<Servico> getAll() {
+		ArrayList<Servico> data = new ArrayList<>();
+		
+		String sql = "select s.codigo, s.codcliente, c.nome, s.codcarro, s.status, s.dataentrada, s.datasaida, s.valorfinal"
+				+ " from servico as s join cliente as c on s.codcliente = c.cpf"
+				+ " order by codigo";
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				Servico servico = new Servico();
+				servico.setCodigo(resultSet.getString("codigo"));
+				servico.setCodCliente(resultSet.getString("codCliente"));
+				servico.setNomeCliente(resultSet.getString("nome"));
 				servico.setCodCarro(resultSet.getString("codCarro"));
 				servico.setStatus(resultSet.getString("status"));
 				servico.setDataEntrada(resultSet.getString("dataEntrada"));

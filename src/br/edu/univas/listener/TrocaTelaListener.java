@@ -7,4 +7,6 @@ public interface TrocaTelaListener {
 	void showAddServicoView();
 	
 	void showListClienteView();
+	
+	void showListServicoView();
 }

@@ -12,6 +12,7 @@ public class MainController {
 	private AddClienteController addClienteController;
 	private AddServicoController addServicoController;
 	private ListClienteController listClienteController;
+	private ListServicoController listServicoController;
 	private MainView mainView;
 
 	public MainController() {
@@ -19,6 +20,7 @@ public class MainController {
 		addClienteController = new AddClienteController();
 		addServicoController = new AddServicoController();
 		listClienteController = new ListClienteController();
+		listServicoController = new ListServicoController();
 	}
 	
 	public void initApp() {
@@ -37,6 +39,11 @@ public class MainController {
 			public void showListClienteView() {
 				showListClientePanel();
 			}
+			
+			@Override
+			public void showListServicoView() {
+				showListServicoPanel();
+			}
 		});
 		
 		mainView.setVisible(true);
@@ -53,6 +60,10 @@ public class MainController {
 	
 	private void showListClientePanel() {
 		showPanel(listClienteController.getComponent());
+	}
+	
+	private void showListServicoPanel() {
+		showPanel(listServicoController.getComponent());
 	}
 	
 	private void showPanel(Component component) {
