@@ -35,6 +35,47 @@ public class ClienteDAO {
 		}
 	}
 	
+	public ArrayList<String> getCpfs() {
+		ArrayList<String> cpfs = new ArrayList<String>();
+		
+		String sql = "select cpf from cliente";
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				cpfs.add(resultSet.getString("cpf"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cpfs;
+	}
+	
+	public String getCliente(String clienteCpf) {
+		String nomeCliente = null;
+	
+		String sql = "select nome from cliente where cpf = '" + clienteCpf + "'";
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				nomeCliente = resultSet.getString("nome");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return nomeCliente;
+	}
+	
 	public ArrayList<Cliente> getAll() {
 		ArrayList<Cliente> data = new ArrayList<>();
 		

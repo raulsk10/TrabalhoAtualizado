@@ -35,6 +35,26 @@ private Connection connection;
 		}
 	}
 	
+	public ArrayList<String> getPlacas(String cliente){
+		ArrayList<String> placas = new ArrayList<>();
+		
+		String sql = "select placa from carro where codcliente = '" + cliente + "'";
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				placas.add(resultSet.getString("placa"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return placas;
+	}
+
+	
 	public ArrayList<Carro> getAll() {
 		ArrayList<Carro> data = new ArrayList<>();
 		

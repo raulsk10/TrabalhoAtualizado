@@ -1,6 +1,7 @@
 package br.edu.univas.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import br.edu.univas.dao.ServicoDAO;
 import br.edu.univas.model.Servico;
@@ -139,24 +142,24 @@ public class ListServicoPanel extends JPanel {
 		gbc.insets = new Insets(10, 7, 0 , 5);
 		content.add(lblOrdem, gbc);
 		
-		JRadioButton rbNome = new JRadioButton();
-		rbNome.setText("Nome");
-		rbNome.setSelected(true);
-		rbNome.setActionCommand("0");
+		JRadioButton rbCodigo = new JRadioButton();
+		rbCodigo.setText("Código");
+		rbCodigo.setSelected(true);
+		rbCodigo.setActionCommand("0");
 		gbc = new GridBagConstraints();
 		gbc.gridy = 5;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.insets = insets;
-		content.add(rbNome, gbc);
+		content.add(rbCodigo, gbc);
 		
-		JRadioButton rbCodigo = new JRadioButton();
-		rbCodigo.setText("Código");
-		rbCodigo.setActionCommand("1");
+		JRadioButton rbNome = new JRadioButton();
+		rbNome.setText("Nome");
+		rbNome.setActionCommand("1");
 		gbc = new GridBagConstraints();
 		gbc.gridy = 6;
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.insets = insets;
-		content.add(rbCodigo, gbc);
+		content.add(rbNome, gbc);
 		
 		ButtonGroup gpOrdem = new ButtonGroup();
 		gpOrdem.add(rbNome);
@@ -189,14 +192,18 @@ public class ListServicoPanel extends JPanel {
 				dao = new ServicoDAO();
 				String codServico;
 				String status;
-				codServico = table.getModel().getValueAt(table.getSelectedRow(), 0).toString();
-				status = table.getModel().getValueAt(table.getSelectedRow(), 3).toString();
-				if (status.equals("F")) {
-					JOptionPane.showMessageDialog(null, "Este serviço já está fechado!", "Finalizar Serviço", JOptionPane.ERROR_MESSAGE);
-				} else {
-					dao.atualizaStatus(codServico);
-					updateServicos(dao.getAll());
-				}
+				String linhas = table.getModel().getRowCount()+"";
+				if (!linhas.equals("0")){
+					codServico = table.getModel().getValueAt(table.getSelectedRow(), 0).toString();
+					status = table.getModel().getValueAt(table.getSelectedRow(), 4).toString();
+					if (status.equals("F")) {
+						JOptionPane.showMessageDialog(null, "Este serviço já está fechado!", "Finalizar Serviço", JOptionPane.ERROR_MESSAGE);
+					} else {
+						dao.atualizaStatus(codServico);
+						updateServicos(dao.getAll());
+					}
+				} else
+					JOptionPane.showMessageDialog(null, "Tabela vazia!", "Finalizar Serviço", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		gbc.gridy = 8;
@@ -221,5 +228,7 @@ public class ListServicoPanel extends JPanel {
 					servico.getValorFinal()
 			});
 		}
+		if (!servicos.isEmpty())
+			table.setRowSelectionInterval(0, 0);
 	}
 }

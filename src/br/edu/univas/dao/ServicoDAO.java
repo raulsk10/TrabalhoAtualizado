@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import br.edu.univas.model.Servico;
@@ -21,17 +23,26 @@ private Connection connection;
 	
 	public void save(Servico servico) {
 		String sql = "insert into servico (codCliente, codCarro, status, dataEntrada, dataSaida, valorFinal) "
-				+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "values (?, ?, ?, ?, ?, ?)";
+		
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss.SSS");
+	    Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(servico.getDataEntrada()+".0");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 		
 		int index = 1;
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(index++, servico.getCodCliente());
 			statement.setString(index++, servico.getCodCarro());
-			statement.setString(index++, servico.getStatus());
-			statement.setString(index++, servico.getDataEntrada());
-			statement.setString(index++, servico.getDataSaida());
-			statement.setFloat(index++, servico.getValorFinal());
+			statement.setString(index++, "A");
+			statement.setTimestamp(index++, timestamp);
+			statement.setTimestamp(index++, timestamp);
+			statement.setFloat(index++, 0);
 			
 			statement.execute();
 		} catch (SQLException e) {
@@ -64,9 +75,9 @@ private Connection connection;
 			sql = sql + " where status = 'F'";
 		
 		if (ordem.equals("0"))
-			sql = sql + " order by nome";
-		else
 			sql = sql + " order by codigo";
+		else
+			sql = sql + " order by nome";
 		
 		try {
 			Statement statement = connection.createStatement();
