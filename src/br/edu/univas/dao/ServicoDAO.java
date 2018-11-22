@@ -33,11 +33,13 @@ private Connection connection;
 			e1.printStackTrace();
 		}
 	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	    
+	    String[] cliente = servico.getCodCliente().toString().split(" - ");
 		
 		int index = 1;
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(index++, servico.getCodCliente());
+			statement.setString(index++, cliente[1]);
 			statement.setString(index++, servico.getCodCarro());
 			statement.setString(index++, "A");
 			statement.setTimestamp(index++, timestamp);

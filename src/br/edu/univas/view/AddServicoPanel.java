@@ -81,13 +81,12 @@ public class AddServicoPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				preencheCarros();
-				preencheCliente();
 			}
 		});
 		ArrayList<String> cpfs = new ArrayList<String>();
 		cpfs = cliDao.getCpfs();
 		for (String string : cpfs) {
-			txtCodCliente.addItem(string);
+			txtCodCliente.addItem(preencheCliente(string) +" - "+ string);
 		}
 		gbc.gridx = 1;
 		gbc.anchor = GridBagConstraints.LINE_END;
@@ -133,14 +132,15 @@ public class AddServicoPanel extends JPanel {
 		txtCodCarro.removeAllItems();
 		ArrayList<String> placas = new ArrayList<String>();
 		String cliente = txtCodCliente.getSelectedItem().toString();
-		placas = carDao.getPlacas(cliente);
+		String[] pieces = cliente.split(" - ");
+		placas = carDao.getPlacas(pieces[1]);
 		for (int i=0;i<placas.size();i++) {
 			txtCodCarro.addItem(placas.get(i));
 		}
 	}
 	
-	public void preencheCliente() {
-		lblCodCliente.setText("Cliente:     "+cliDao.getCliente(txtCodCliente.getSelectedItem().toString()));
+	public String preencheCliente(String cpf) {
+		return cliDao.getCliente(cpf);
 	}
 	
 	public String getTxtCodCliente() {
