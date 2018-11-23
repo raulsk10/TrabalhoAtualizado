@@ -16,6 +16,7 @@ import br.edu.univas.model.Servico;
 public class ServicoDAO {
 
 private Connection connection;
+private String horaSaida;
 
 	public ServicoDAO() {
 		connection = ConnectionUtil.getConnection();
@@ -28,7 +29,7 @@ private Connection connection;
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss.SSS");
 	    Date parsedDate = null;
 		try {
-			parsedDate = dateFormat.parse(servico.getDataEntrada()+".0");
+			parsedDate = dateFormat.parse(servico.getDataEntrada()+":00.0");
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
@@ -52,8 +53,13 @@ private Connection connection;
 		}
 	}
 	
-	public void atualizaStatus(String codServico) {
+	public void atualizaServico(String codServico, float preco, String horaEntrada) {
+		int horas = calculaHoras(horaEntrada);
+		float precoFinal = preco * horas;
+		
 		String sql = "update servico set status = 'F'"
+				+ ", valorfinal = '" + precoFinal + "'"
+				+ ", dataSaida = '" + horaSaida + "'"
 				+ "where codigo = '" + codServico + "'";
 		
 		try {
@@ -62,6 +68,31 @@ private Connection connection;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int calculaHoras(String horaEntrada) {
+		int horas = 0;
+		
+		Date date = new Date();
+		Timestamp ts = new Timestamp(date.getTime());
+		horaSaida = ts+"";
+		
+		String sql = "select ROUND("
+				+ "EXTRACT( EPOCH FROM timestamp '"+horaSaida+"' - timestamp '"+horaEntrada+"' ) / 3600)"
+				+ " as horas;";
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				horas = resultSet.getInt("horas");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return horas;
 	}
 	
 	public ArrayList<Servico> filtraTabela(String filtro, String ordem) {

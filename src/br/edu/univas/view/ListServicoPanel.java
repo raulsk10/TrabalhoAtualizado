@@ -1,7 +1,7 @@
 package br.edu.univas.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,10 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
 import br.edu.univas.dao.ServicoDAO;
 import br.edu.univas.model.Servico;
@@ -32,6 +31,7 @@ public class ListServicoPanel extends JPanel {
 	private JTable table;
 	private GridBagConstraints gbc;
 	private ServicoDAO dao;
+	private JTextField txtValorHora;
 	
 	public ListServicoPanel() {
 		addComponents();
@@ -189,28 +189,57 @@ public class ListServicoPanel extends JPanel {
 		btnFinalizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				dao = new ServicoDAO();
-				String codServico;
-				String status;
-				String linhas = table.getModel().getRowCount()+"";
-				if (!linhas.equals("0")){
-					codServico = table.getModel().getValueAt(table.getSelectedRow(), 0).toString();
-					status = table.getModel().getValueAt(table.getSelectedRow(), 4).toString();
-					if (status.equals("F")) {
-						JOptionPane.showMessageDialog(null, "Este serviço já está fechado!", "Finalizar Serviço", JOptionPane.ERROR_MESSAGE);
-					} else {
-						dao.atualizaStatus(codServico);
-						updateServicos(dao.getAll());
-					}
-				} else
-					JOptionPane.showMessageDialog(null, "Tabela vazia!", "Finalizar Serviço", JOptionPane.WARNING_MESSAGE);
+				finalizaServico();
 			}
 		});
 		gbc.gridy = 8;
 		gbc.insets = new Insets(15, 5, 5, 5);
 		content.add(btnFinalizar, gbc);
+		
+		gbc = new GridBagConstraints();
+		JLabel lblValorHora = new JLabel("Preço da Hora:");
+		gbc.gridy = 9;
+		gbc.insets = new Insets(0, 5, 0, 5);
+		content.add(lblValorHora, gbc);
+		
+		gbc = new GridBagConstraints();
+		txtValorHora = new JTextField();
+		txtValorHora.setColumns(4);
+		gbc.gridy = 10;
+		gbc.insets = new Insets(5, 5, 5, 5);
+		content.add(txtValorHora, gbc);
 	}
-
+	
+	public void finalizaServico() {
+		dao = new ServicoDAO();
+		String codServico;
+		String status;
+		String linhas = table.getModel().getRowCount()+"";
+		float preco = 0;
+		try {
+			preco = Float.parseFloat(txtValorHora.getText().toString());
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Por favor corrija o preço!", "Finalizar Serviço", JOptionPane.ERROR_MESSAGE);
+		}
+				
+		if (!linhas.equals("0")){
+			codServico = table.getModel().getValueAt(table.getSelectedRow(), 0).toString();
+			status = table.getModel().getValueAt(table.getSelectedRow(), 4).toString();
+			String horaEntrada = table.getModel().getValueAt(table.getSelectedRow(), 5).toString();
+			if (status.equals("F")) {
+				JOptionPane.showMessageDialog(null, "Este serviço já está fechado!", "Finalizar Serviço", JOptionPane.ERROR_MESSAGE);
+			} else {
+				if (!txtValorHora.getText().toString().equals("")) {
+					dao.atualizaServico(codServico, preco, horaEntrada);
+					updateServicos(dao.getAll());
+				} else 
+					JOptionPane.showMessageDialog(null, "Campo de preço vazio!", "Finalizar Serviço", JOptionPane.WARNING_MESSAGE);
+			}
+		} else
+			JOptionPane.showMessageDialog(null, "Tabela vazia!", "Finalizar Serviço", JOptionPane.WARNING_MESSAGE);
+	}
+	
 	public void updateServicos(ArrayList<Servico> servicos) {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		

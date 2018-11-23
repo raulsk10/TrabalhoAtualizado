@@ -1,5 +1,7 @@
 package br.edu.univas.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,12 +24,8 @@ public class AddServicoPanel extends JPanel {
 	private JComboBox<String> txtCodCliente;
 	private JLabel lblCodCliente;
 	private JComboBox<String> txtCodCarro;
-	private JTextField txtStatus;
 	private JTextField txtDataEntrada;
-	private JTextField txtDataSaida;
 	private JTextField txtHoraEntrada;
-	private JTextField txtHoraSaida;
-	private JTextField txtValorFinal;
 	private GridBagConstraints gbc;
 	private ClienteDAO cliDao;
 	private CarroDAO carDao;
@@ -52,7 +50,7 @@ public class AddServicoPanel extends JPanel {
 		lblCodCliente.setText("Cliente:");
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.insets = insets;
 		this.add(lblCodCliente, gbc);
 		
@@ -60,14 +58,14 @@ public class AddServicoPanel extends JPanel {
 		JLabel lblCarro = new JLabel();
 		lblCarro.setText("Carro:");
 		gbc.gridx = 2;
-		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.insets = insets;
 		this.add(lblCarro, gbc);
 		
 		gbc();
 		txtCodCarro = new JComboBox<String>();
 		gbc.gridx = 3;
-		gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = insets;
 		gbc.weightx = 1.0;
@@ -89,7 +87,7 @@ public class AddServicoPanel extends JPanel {
 			txtCodCliente.addItem(preencheCliente(string) +" - "+ string);
 		}
 		gbc.gridx = 1;
-		gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = insets;
 		gbc.weightx = 1.0;
@@ -97,34 +95,53 @@ public class AddServicoPanel extends JPanel {
 		
 		gbc();
 		JLabel lblDataEntrada = new JLabel();
-		lblDataEntrada.setText("Data/Hora de Entrada(dd-mm-aaaa hh:mm:ss):");
+		lblDataEntrada.setText("Data de entrada:");
 		gbc.gridy = 1;
-		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.anchor = GridBagConstraints.LINE_END;
 		gbc.insets = insets;
 		this.add(lblDataEntrada, gbc);
 		
 		gbc();
 		txtDataEntrada = new JTextField();
+		txtDataEntrada.setColumns(6);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		gbc.anchor = GridBagConstraints.LINE_END;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.insets = insets;
-		gbc.weightx = 1.0;
 		this.add(txtDataEntrada, gbc);
+		
+		gbc();
+		JLabel lblHoraEntrada = new JLabel();
+		lblHoraEntrada.setText("Hora de entrada:");
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.LINE_END;
+		gbc.insets = insets;
+		this.add(lblHoraEntrada, gbc);
+		
+		gbc();
+		txtHoraEntrada = new JTextField();
+		txtHoraEntrada.setColumns(3);
+		gbc.gridx = 3;
+		gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.insets = insets;
+		this.add(txtHoraEntrada, gbc);
 		
 		gbc();
 		JButton btnSalvar = new JButton();
 		btnSalvar.setText("Salvar");
+		btnSalvar.setPreferredSize(new Dimension(128, 32));
 		btnSalvar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				txtDataEntrada.setText(txtDataEntrada.getText()+ " " +txtHoraEntrada.getText());
 				listener.save();
 			}
 		});
 		gbc.gridy = 2;
+		gbc.gridwidth = 3;
 		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.insets = insets;
 		this.add(btnSalvar, gbc);
 	}
 	
@@ -151,28 +168,12 @@ public class AddServicoPanel extends JPanel {
 		return txtCodCarro.getSelectedItem().toString();
 	}
 	
-	public JTextField getTxtStatus() {
-		return txtStatus;
-	}
-	
 	public JTextField getTxtDataEntrada() {
 		return txtDataEntrada;
 	}
 	
-	public JTextField getTxtDataSaida() {
-		return txtDataSaida;
-	}
-	
 	public JTextField getTxtHoraEntrada() {
 		return txtHoraEntrada;
-	}
-	
-	public JTextField getTxtHoraSaida() {
-		return txtHoraSaida;
-	}
-	
-	public JTextField getTxtValorFinal() {
-		return txtValorFinal;
 	}
 	
 	public String getCpfCliente() {

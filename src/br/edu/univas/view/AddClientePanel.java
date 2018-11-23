@@ -140,13 +140,9 @@ public class AddClientePanel extends JPanel{
 				listener.save();
 			}
 		});
-		gbc.gridwidth = 2;
-		gbc.gridx = 1;
 		gbc.gridy = 4;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.insets = new Insets(5, 650, 5, 5);
-		gbc.weightx = 0;
-		gbc.weighty = 0;
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.gridwidth = 2;
 		content.add(btnSalvar, gbc);
 
 		this.add(content);
