@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -136,7 +137,10 @@ public class AddServicoPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				txtDataEntrada.setText(txtDataEntrada.getText()+ " " +txtHoraEntrada.getText());
-				listener.save();
+				if (verificaCampos())
+					listener.save();
+				else
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Cadastro Serviço", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		gbc.gridy = 2;
@@ -158,6 +162,21 @@ public class AddServicoPanel extends JPanel {
 	
 	public String preencheCliente(String cpf) {
 		return cliDao.getCliente(cpf);
+	}
+	
+	public boolean verificaCampos() {
+		boolean preenchidos = true;
+		
+		if (txtCodCliente.getSelectedItem().toString().equals(""))
+			preenchidos = false;
+		if (txtCodCarro.getSelectedItem().toString().equals(""))
+			preenchidos = false;
+		if (txtDataEntrada.getText().toString().equals(""))
+			preenchidos = false;
+		if (txtHoraEntrada.getText().toString().equals(""))
+			preenchidos = false;
+		
+		return preenchidos;
 	}
 	
 	public String getTxtCodCliente() {

@@ -10,6 +10,7 @@ import br.edu.univas.view.MainView;
 public class MainController {
 	
 	private AddClienteController addClienteController;
+	private AddCarroController addCarroController;
 	private AddServicoController addServicoController;
 	private ListClienteController listClienteController;
 	private ListServicoController listServicoController;
@@ -18,6 +19,7 @@ public class MainController {
 	public MainController() {
 		mainView = new MainView();
 		addClienteController = new AddClienteController();
+		addCarroController = new AddCarroController();
 		addServicoController = new AddServicoController();
 		listClienteController = new ListClienteController();
 		listServicoController = new ListServicoController();
@@ -28,6 +30,11 @@ public class MainController {
 			@Override
 			public void showAddClienteView() {
 				showAddClientePanel();
+			}
+			
+			@Override
+			public void showAddCarroView() {
+				showAddCarroPanel();
 			}
 			
 			@Override
@@ -52,6 +59,10 @@ public class MainController {
 	
 	private void showAddClientePanel() {
 		showPanel(addClienteController.getComponent());
+	}
+	
+	private void showAddCarroPanel() {
+		showPanel(addCarroController.getComponent());
 	}
 
 	private void showAddServicoPanel() {

@@ -42,7 +42,7 @@ public class ListServicoPanel extends JPanel {
 		
 		JPanel westPanel = new JPanel();
 		addWestComponents(westPanel);
-		westPanel.setPreferredSize(new Dimension(750, 0));
+		westPanel.setPreferredSize(new Dimension(1000, 0));
 		this.add(westPanel, BorderLayout.WEST);
 		
 		JPanel eastPanel = new JPanel();

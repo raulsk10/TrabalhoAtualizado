@@ -23,7 +23,7 @@ public class MainView extends JFrame {
 
 	public MainView() {
 		this.setTitle("");
-		this.setSize(900, 500);
+		this.setSize(1150, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -81,6 +81,17 @@ public class MainView extends JFrame {
 			}
 		});
 		panel.add(btnCliente);
+		
+		JButton btnCarro = new JButton(new ImageIcon("resources/carro.png"));
+		btnCarro.setText("Cadastro Carros");
+		btnCarro.setPreferredSize(btnDimension);
+		btnCarro.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				listener.showAddCarroView();
+			}
+		});
+		panel.add(btnCarro);
 		
 		JButton btnServicos = new JButton(new ImageIcon("resources/servico.png"));
 		btnServicos.setText("Cadastro Serviços");

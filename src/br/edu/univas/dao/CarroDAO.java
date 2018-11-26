@@ -21,10 +21,12 @@ private Connection connection;
 		String sql = "insert into carro (codCliente, modelo, placa, cor) "
 				+ "values (?, ?, ?, ?)";
 		
+		String[] cliente = carro.getCodCliente().toString().split(" - ");
+		
 		int index = 1;
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(index++, carro.getCodCliente());
+			statement.setString(index++, cliente[1]);
 			statement.setString(index++, carro.getModelo());
 			statement.setString(index++, carro.getPlaca());
 			statement.setString(index++, carro.getCor());
